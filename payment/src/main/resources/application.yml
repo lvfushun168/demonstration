@@ -1,0 +1,19 @@
+server:
+  port: 1202
+spring:
+  application:
+    name: payment
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka
+
+
+paypal:
+  client:
+    app: AXc1xWOVTjTDKxZq-r-z7BLExkLlDWlFnm-tR04bVRaXtf254m1FVKORMqs0OS0H4f_MP_NCHNZgUMyY
+    secret: EPvh-xmuCObxzS0IZihuIFwKHgY6gFNrsNxb5sjV1_lzBMMN6MmzvQwjUyd_l6HZuY99DAanwBO9igVI
+    accessToken: access_token$sandbox$r9mzr775vcx6dndy$1bad9dd84928c6bc4ec3a15bcaf2cade
+  mode: sandbox

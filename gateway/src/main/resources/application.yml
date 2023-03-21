@@ -1,0 +1,53 @@
+server:
+  port: 1112
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: authentication
+          uri: lb://authentication
+          filters:
+            - Log
+            - StripPrefix=1
+          predicates:
+            - Path=/authentication/**
+        - id: open-ai
+          uri: lb://open-ai
+          filters:
+            - Log
+            - StripPrefix=1
+          predicates:
+            - Path=/open-ai/**
+        - id: payment
+          uri: lb://payment
+          filters:
+            - Log
+            - StripPrefix=1
+          predicates:
+            - Path=/payment/**
+#      routes:
+#        - id: eureka
+#          uri: http://localhost:1111
+#          predicates:
+#            - Path=/get/**
+#        - id: authentication
+#          uri: http://localhost:1114
+#          predicates:
+#            - Path=/**
+  main:
+    web-application-type: reactive
+
+eureka:
+  instance:
+    hostname: eureka
+  client:
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://localhost:1111/eureka
