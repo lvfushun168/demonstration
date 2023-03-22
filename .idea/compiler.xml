@@ -11,6 +11,7 @@
         <module name="workflow" />
         <module name="lfs-blog" />
         <module name="eureka" />
+        <module name="websocket" />
         <module name="payment" />
         <module name="config" />
         <module name="gateway" />
@@ -28,6 +29,7 @@
       <module name="open-ai" options="-parameters" />
       <module name="payment" options="-parameters" />
       <module name="system" options="-parameters" />
+      <module name="websocket" options="-parameters" />
       <module name="workflow" options="-parameters" />
     </option>
   </component>

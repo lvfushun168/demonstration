@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Anonymous Chat Room</title>
+    <style type="text/css">
+        .chatdiv{width: 800px;height: 300px;padding: 10px;margin: 10px;border: #444 solid 1px;}
+        .myshuo{text-align: right;border-bottom: #ccc solid 1px;padding: 5px 0;color: black;width: 100%}
+        .othershuo{text-align: left;border-bottom: #ccc solid 1px;padding: 5px 0;color: dodgerblue;width: 100%}
+        .xitongshuo{text-align: center;border-bottom: #ccc solid 1px;padding: 5px 0;color: red;font-weight: bold;width: 100%}
+    </style>
+</head>
+
+                                <!--TODO 目前无法正常加载图片-->
+<body style="background-size: cover;background-repeat: no-repeat;overflow: hidden;background-color: darkslategray ">
+
+<div id="loginpage" style="display: block;position: fixed;top: -40%;left: 0px;right: 0px;bottom: 0px;margin: auto;width: 320px;height: 120px;opacity: 60%;background-color: antiquewhite">
+    <h3 style="color: black" ;align="center">&nbsp;User Login</h3>
+    &nbsp;set your nickname：<input type="text" id="username"><input type="button" onclick="login()" value="login">
+</div>
+
+<div id="chatpage" style="display: none;position: fixed;top: 0px;left: 0px;right: 0px;bottom: 0px;margin: auto;width: 850px;height: 500px;background: antiquewhite">
+    <div class="chatdiv" id="chatdiv"></div>
+    <div>
+        <select id="to" multiple="multiple" size="5" style="width: 10%">
+        </select>
+        <input type="button" onclick="getOnlineUser()" value="refresh current users">
+        <input type="text" id="text"><input type="button" onclick="sendMessage()" value="send">
+    </div>
+</div>
+
+
+
+
+<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+    var socket;
+    var myusername="";
+
+    function getOnlineUser(){
+        $.get("/ws/getOnlineUser",{},function(result){
+            $("#to").empty();
+            $("#to").append($("<option>").val("").text("bulk messaging"));
+            console.log("value:"+result);
+            for(var i=0;i<result.length;i++){
+                $("#to").append($("<option>").val(result[i]).text(result[i]));
+            }
+        },'json');
+    }
+
+    function sendMessage(){
+        var text=$("#text").val();
+        if(text==''){
+            alert('content cannot be null');
+            return;
+        }
+        var to=$("#to").val()[0];
+        if(to!=''){
+            $("#chatdiv").append("<div class='myshuo'>我:"+text+"</div>");
+        }
+        $.get("/ws/chat/send",{from:myusername,to:to,message:text},function(result){
+            console.info(result);
+            $("#text").val("");
+        },'json');
+    }
+
+    function login(){
+        var username=$("#username").val();
+        if(username==''){
+            alert('user cannot be null');
+            return;
+        }
+        myusername=username;
+
+        if (typeof (WebSocket) == "undefined") {
+            console.log("遗憾：您的浏览器不支持WebSocket");
+        } else {
+            console.log("恭喜：您的浏览器支持WebSocket");
+            //实现化WebSocket对象
+            //指定要连接的服务器地址与端口建立连接
+            //注意ws、wss使用不同的端口。我使用自签名的证书测试，无法使用wss，浏览器打开WebSocket时报错
+            //ws对应http、wss对应https。
+            //  TODO ↓ 目前发现这里只能写服务器的准确IP
+            socket = new WebSocket("ws://xxx.xxx.xxx.xxx:1919/ws/chat?username="+username);
+            // socket = new WebSocket("ws://127.0.0.1:1919/ws/chat?username="+username);
+            //连接打开事件
+            socket.onopen = function() {
+                console.log("Socket 已打开");
+                //socket.send("消息发送测试(From Client)");
+                $("#loginpage").hide();
+                $("#chatpage").show();
+                getOnlineUser();
+            };
+            //收到消息事件
+            socket.onmessage = function(msg) {
+                console.log(msg.data);
+                var message=JSON.parse(msg.data);
+                if(message.to==''){
+                    $("#chatdiv").append("<div class='xitongshuo'>【All】"+message.from+":"+message.message+"</div>");
+                }else{
+                    $("#chatdiv").append("<div class='othershuo'>"+message.from+":"+message.message+"</div>");
+                }
+
+            };
+            //连接关闭事件
+            socket.onclose = function() {
+                console.log("Socket已关闭");
+            };
+            //发生了错误事件
+            socket.onerror = function() {
+                alert("Socket发生了错误");
+            }
+            //窗口关闭时，关闭连接
+            window.unload=function() {
+                socket.close();
+            };
+        }
+    }
+
+</script>
+</body>
+</html>

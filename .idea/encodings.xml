@@ -13,6 +13,8 @@
     <file url="file://$PROJECT_DIR$/payment/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/websocket/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/websocket/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/workflow/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/workflow/src/main/resources" charset="UTF-8" />
   </component>

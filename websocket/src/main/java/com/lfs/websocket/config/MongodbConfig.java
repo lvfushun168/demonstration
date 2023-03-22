@@ -1,4 +1,4 @@
-package com.lfs.openai.config;
+package com.lfs.websocket.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -26,7 +26,7 @@ public class MongodbConfig {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
+    public MongoTemplate mongoTemplate() {
         return new MongoTemplate(mongo(), "lfs");
     }
 

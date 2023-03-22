@@ -60,7 +60,7 @@ public class LoginController extends JwtFilter {
      * @return
      */
     @PostMapping("/login")
-    @Idempotent(expireTime = 5L,message = "差不多得了，恁的手速太快力🤡")
+    @Idempotent(expireTime = 5L,message = "请不要过快点击")
     public Result login(@RequestParam(value = "username") String username, @RequestParam(value = "password")String password, ServletRequest request){
         this.loginStatus(request);
         this.checkUserAccount(username, password);

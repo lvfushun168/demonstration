@@ -10,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableEurekaClient
 @MapperScan({"com.lfs.authentication.shiro.repository"})
-//@EntityScan("com.lfs.authentication.shiro.api")
 @EnableFeignClients
 public class AuthenticationApplication {
 

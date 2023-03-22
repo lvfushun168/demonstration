@@ -5,14 +5,14 @@ spring:
     name: workflow
   data:
     mongodb:
-      uri: mongodb://root:google123@120.24.95.4:27017/lfs?authSource=admin
-      host: 120.24.95.4
+      uri: mongodb://
+      host: xxx.xxx.xxx.xxx
       port: 27017
       database: lfs
   redis:
     port: 6379
-    host: 120.24.95.4
-    password: google123
+    host: xxx.xxx.xxx.xxx
+    password: xxxxxx
     jedis:
       pool:
         max-idle: 500

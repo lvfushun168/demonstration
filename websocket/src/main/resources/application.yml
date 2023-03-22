@@ -1,8 +1,8 @@
 server:
-  port: 1113
+  port: 1203
 spring:
   application:
-    name: system
+    name: websocket
   datasource:
     url: jdbc:mysql://
     username: xxxxxxx
@@ -10,10 +10,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     mongodb:
-      uri: mongodb://
       host: xxx.xxx.xxx.xxx
       port: 27017
       database: lfs
+      uri: uri
   redis:
     port: 6379
     host: xxx.xxx.xxx.xxx
@@ -31,3 +31,9 @@ eureka:
       defaultZone: http://localhost:1111/eureka
 
 
+mybatis-plus:
+  type-enums-package: com.bjbss.bbcsupport.domain
+  configuration:
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true

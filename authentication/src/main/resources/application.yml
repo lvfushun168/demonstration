@@ -4,20 +4,20 @@ spring:
   application:
     name: authentication
   datasource:
-    url: jdbc:mysql://120.24.95.4:3306/lfs?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: 6tfc^YHN
+    url: jdbc:mysql://
+    username: xxxxxx
+    password: xxxxxxxx
     driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     mongodb:
-      host: 120.24.95.4
+      host: xxx.xxx.xxx.xxx
       port: 27017
       database: lfs
-      uri: mongodb://root:google123@120.24.95.4:27017/lfs?authSource=admin
+      uri: mongodb://
   redis:
     port: 6379
-    host: 120.24.95.4
-    password: google123
+    host: xxx.xxx.xxx.xxx
+    password: xxxxxx
     jedis:
       pool:
         max-idle: 500

@@ -12,6 +12,7 @@ Services:
 * Unified authentication
 * Integration of Open-Ai
 * Integration of workflow
+* Websocket instance
 
 
 
